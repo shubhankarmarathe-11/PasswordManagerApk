@@ -5,10 +5,12 @@ import "./global.css";
 export default function RootLayout() {
   return (
     <>
-      <Stack>
-        <Stack.Screen name="App" options={{ title: "Modal" }} />
+      <StatusBar style="dark" />
+
+      <Stack initialRouteName="App" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="App" />
       </Stack>
-      <StatusBar style="auto" />
     </>
   );
 }
