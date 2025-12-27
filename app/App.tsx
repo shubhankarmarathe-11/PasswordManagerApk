@@ -11,6 +11,7 @@ export default function App() {
         Welcome to Nativewind!
       </Text>
       <Link href={"/auth/Login"}>Login</Link>
+      <Link href={"/tabs/Homepage"}>Home</Link>
     </View>
   );
 }
