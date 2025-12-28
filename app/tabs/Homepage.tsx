@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { router } from "expo-router";
+import * as secureStore from "expo-secure-store";
+import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
 const Homepage = () => {
-  const [totalpass, Settotalpass] = useState(2);
-  const [user, Setuser] = useState("Shubhankar Marathe");
+  const [totalpass, Settotalpass] = useState(0);
+  const [user, Setuser] = useState("");
+
+  useEffect(() => {
+    const GetCacheData = async () => {
+      let username = await secureStore.getItemAsync("username");
+      if (username != null) return Setuser(username);
+    };
+    GetCacheData();
+  }, []);
 
   return (
     <>
@@ -21,7 +31,12 @@ const Homepage = () => {
               </Text>
             </View>
           </View>
-          <Pressable className="bg-violet-700 rounded-md py-16 flex justify-center items-center">
+          <Pressable
+            onPress={() => {
+              router.navigate("/passwords/");
+            }}
+            className="bg-violet-700 rounded-md py-16 flex justify-center items-center"
+          >
             <Text className="text-white text-lg">Go to Saved Passwords</Text>
           </Pressable>
           <Text className="text-lg font-bold">

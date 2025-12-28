@@ -46,9 +46,19 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/Audiowide/Audiowide-Regular.ttf"]
+          "fonts": [
+            "./assets/Audiowide/Audiowide-Regular.ttf"
+          ]
         }
-      ]
+      ],
+      [
+        "expo-sqlite",
+        {
+          "enableFTS": false,
+          "useSQLCipher": true
+        }
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,

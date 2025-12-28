@@ -7,10 +7,10 @@ export default function RootLayout() {
     <>
       <StatusBar style="dark" />
 
-      <Stack initialRouteName="App" screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="App" />
+        <Stack.Screen name="(passwords)" />
       </Stack>
     </>
   );

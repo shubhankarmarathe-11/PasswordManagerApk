@@ -1,5 +1,8 @@
+import * as Crypto from "expo-crypto";
 import { useNetworkState } from "expo-network";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import * as secureStore from "expo-secure-store";
+import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -16,6 +19,8 @@ const RegisterUser = () => {
   const [email, Setemail] = useState("");
   const [phone, Setphone] = useState("");
   const [password, Setpassword] = useState("");
+
+  const router = useRouter();
 
   const emailRegex = new RegExp(
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -34,7 +39,27 @@ const RegisterUser = () => {
     if (password == "" || password.length < 8)
       return showToast("error", "Error", "Please enter password");
 
-    return showToast("success", "Success", "correct login");
+    const db = await sqlite.openDatabaseAsync("passwords.db");
+
+    let hashedpass = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password
+    );
+
+    try {
+      let r = await db.runAsync(
+        "INSERT INTO USERS (username, email, mobilenum, password) VALUES (?, ?, ?, ?)",
+        [String(username), String(email), String(phone), hashedpass]
+      );
+      await db.closeAsync();
+      await secureStore.setItemAsync("username", username);
+      await secureStore.setItemAsync("userid", String(r.lastInsertRowId));
+      router.replace("/tabs/Homepage");
+    } catch (error) {
+      console.log(error);
+
+      return showToast("error", "Error", "Please try again");
+    }
   }
 
   return (
