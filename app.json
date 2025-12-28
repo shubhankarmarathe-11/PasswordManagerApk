@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "passwordmanager",
+    "name": "Password Manager",
     "slug": "passwordmanager",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,9 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shubhankar.passwordmanager"
     },
     "android": {
+      "package": "com.shubhankar.passwordmanager",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -63,6 +65,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1a737ee2-3f43-466b-95e7-27d84b874b52"
+      }
     }
   }
 }
