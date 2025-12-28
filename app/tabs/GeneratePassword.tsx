@@ -70,7 +70,7 @@ const GeneratePassword = () => {
         <Text className="text-center text-3xl ">Generate Password</Text>
         <TextInput
           keyboardType="default"
-          className="border border-1 rounded p-3 text-lg font-extralight"
+          className="border border-1 rounded-2xl p-3 text-lg font-extralight"
           value={password}
           onChangeText={(text) => Setpassword(text)}
         />
@@ -126,7 +126,7 @@ const GeneratePassword = () => {
             onPress={() => {
               onClicklength(8);
             }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 8 ? "border-violet-700 text-white bg-violet-700" : "border-black"}`}
+            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 8 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
           >
             8
           </Text>
@@ -134,7 +134,7 @@ const GeneratePassword = () => {
             onPress={() => {
               onClicklength(12);
             }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 12 ? "border-violet-700 text-white bg-violet-700" : "border-black"}`}
+            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 12 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
           >
             12
           </Text>
@@ -142,20 +142,20 @@ const GeneratePassword = () => {
             onPress={() => {
               onClicklength(16);
             }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 16 ? "border-violet-700 text-white bg-violet-700" : "border-black"}`}
+            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 16 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
           >
             16
           </Text>
         </View>
         <Text
           onPress={GeneratePasswordfun}
-          className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
+          className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
         >
           Generate
         </Text>
         <Text
           onPress={copyToClipboard}
-          className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
+          className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
         >
           Copy to Clipboard
         </Text>

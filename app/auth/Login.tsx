@@ -3,13 +3,17 @@ import { Link, useRouter } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
 import { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { showToast } from "../../utils/ShowMessage";
+
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Login = () => {
   const [email, Setemail] = useState("");
   const [password, Setpassword] = useState("");
+  const [showpassword, Setshowpass] = useState(true);
+
   const router = useRouter();
 
   const emailRegex = new RegExp(
@@ -52,7 +56,7 @@ const Login = () => {
 
   return (
     <>
-      <View className=" flex-1 pt-24 w-screen ">
+      <View className=" flex-1 pt-24 w-screen">
         <Toast />
         <View className="flex flex-col items-center p-5 w-auto overflow-y-auto justify-center h-3/4 m-3  rounded-md  gap-8 ">
           <Text className=" text-5xl font-bold ">Login Page</Text>
@@ -65,15 +69,30 @@ const Login = () => {
               Setemail(text);
             }}
           />
-          <TextInput
-            className="border w-full rounded-2xl p-3 py-5 "
-            keyboardType="default"
-            secureTextEntry={true}
-            placeholder="Enter Password"
-            onChangeText={(text) => {
-              Setpassword(text);
-            }}
-          />
+
+          <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+            <TextInput
+              className="flex-1 rounded-2xl p-3 py-5 "
+              keyboardType="default"
+              secureTextEntry={showpassword}
+              placeholder="Enter Password"
+              onChangeText={(text) => {
+                Setpassword(text);
+              }}
+            />
+            <Pressable
+              className="min-w-fit p-3"
+              onPress={() => {
+                Setshowpass(!showpassword);
+              }}
+            >
+              <MaterialIcons
+                name={showpassword ? "visibility-off" : "visibility"}
+                size={24}
+                color={"black"}
+              />
+            </Pressable>
+          </View>
           <View className="w-full text-left">
             <Link
               className="underline underline-offset-8 text-violet-700 "

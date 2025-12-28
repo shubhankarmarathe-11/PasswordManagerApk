@@ -1,10 +1,11 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import * as Crypto from "expo-crypto";
 import { useNetworkState } from "expo-network";
 import { Link, useRouter } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { showToast } from "../../utils/ShowMessage";
 
@@ -19,6 +20,8 @@ const RegisterUser = () => {
   const [email, Setemail] = useState("");
   const [phone, Setphone] = useState("");
   const [password, Setpassword] = useState("");
+
+  const [showpassword, Setshowpass] = useState(true);
 
   const router = useRouter();
 
@@ -94,15 +97,29 @@ const RegisterUser = () => {
             Setphone(String(text));
           }}
         />
-        <TextInput
-          className="border w-full rounded-2xl p-3 py-5 "
-          keyboardType="default"
-          secureTextEntry={true}
-          placeholder="Enter Password"
-          onChangeText={(text) => {
-            Setpassword(text);
-          }}
-        />
+        <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+          <TextInput
+            className="flex-1 rounded-2xl p-3 py-5 "
+            keyboardType="default"
+            secureTextEntry={showpassword}
+            placeholder="Enter Password"
+            onChangeText={(text) => {
+              Setpassword(text);
+            }}
+          />
+          <Pressable
+            className="min-w-fit p-3"
+            onPress={() => {
+              Setshowpass(!showpassword);
+            }}
+          >
+            <MaterialIcons
+              name={showpassword ? "visibility-off" : "visibility"}
+              size={24}
+              color={"black"}
+            />
+          </Pressable>
+        </View>
         <View className="bg-black w-fit rounded-xl py-4 px-8 flex items-center justify-center shadow-2xl elevation-2xl ">
           <Text onPress={onClickRegister} className="text-white ">
             Create Account

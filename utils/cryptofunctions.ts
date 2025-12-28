@@ -1,19 +1,27 @@
 import CryptoJS from "react-native-crypto-js";
 
-const EncryptDecrypt = async () => {
-  let data = [{ id: 1 }, { id: 2 }];
+const Encryptdata = async (data: string) => {
+  try {
+    const encryptedData = CryptoJS.AES.encrypt(
+      data,
+      "secret key 123"
+    ).toString();
 
-  let ciphertext = await CryptoJS.AES.encrypt(
-    JSON.stringify(data),
-    "secret key 123"
-  ).toString();
-
-  console.log(ciphertext);
-
-  let bytes = await CryptoJS.AES.decrypt(ciphertext, "secret key 123");
-  let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
-  console.log(decryptedData);
+    return encryptedData;
+  } catch (error) {
+    return false;
+  }
 };
 
-export { EncryptDecrypt };
+const Decryptdata = async (data: string) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(data, "secret key 123");
+    const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+
+    return decryptedData;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { Decryptdata, Encryptdata };

@@ -1,15 +1,18 @@
+import { Encryptdata } from "@/utils/cryptofunctions";
 import { showToast } from "@/utils/ShowMessage";
+import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
 import { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 const AddPassword = () => {
   const [title, Settitle] = useState("");
   const [username, Setusername] = useState("");
   const [password, Setpassword] = useState("");
+  const [showpassword, Setshowpass] = useState(true);
 
   const onClickAdd = async () => {
     if (title == "")
@@ -19,23 +22,25 @@ const AddPassword = () => {
     if (password == "")
       return showToast("error", "Error", "Please enter password ");
 
+    let encrypteddata = await Encryptdata(String(password));
+
+    if (encrypteddata == false)
+      return showToast("error", "Error", "Please try again ");
+
     try {
       const db = await sqlite.openDatabaseAsync("passwords.db");
       const userid = await secureStore.getItemAsync("userid");
       if (userid == null) return router.replace("/auth/Login");
-      console.log(userid);
 
       let r = await db.runAsync(
         "INSERT INTO allpasswords (userid, title, username, password) VALUES (?, ?, ?, ?)",
-        [userid, title, username, password]
+        [userid, title, username, encrypteddata]
       );
-      console.log(r);
       Settitle("");
       Setusername("");
       Setpassword("");
       return showToast("success", "Success", "Successfully added");
     } catch (error) {
-      console.log(error);
       return showToast("error", "Error", "Please try again ");
     }
   };
@@ -48,7 +53,7 @@ const AddPassword = () => {
           <Text className="text-center text-3xl ">Add Password</Text>
           <Text className="font-bold">Website / App name</Text>
           <TextInput
-            className="border border-1 rounded p-3 text-lg font-extralight"
+            className="border border-1 rounded-2xl p-3 text-lg font-extralight"
             placeholder="Enter Website / App name"
             value={title}
             onChangeText={(text) => {
@@ -57,7 +62,7 @@ const AddPassword = () => {
           />
           <Text className="font-bold">Username / email</Text>
           <TextInput
-            className="border border-1 rounded p-3 text-lg font-extralight"
+            className="border border-1 rounded-2xl p-3 text-lg font-extralight"
             placeholder="Enter username / email"
             value={username}
             onChangeText={(text) => {
@@ -65,18 +70,32 @@ const AddPassword = () => {
             }}
           />
           <Text className="font-bold">Password</Text>
-          <TextInput
-            className="border border-1 rounded p-3 text-lg font-extralight"
-            placeholder="Enter Password"
-            value={password}
-            onChangeText={(text) => {
-              Setpassword(text);
-            }}
-          />
-
+          <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+            <TextInput
+              className="flex-1 rounded-2xl p-3 text-lg font-extralight"
+              placeholder="Enter Password"
+              value={password}
+              onChangeText={(text) => {
+                Setpassword(text);
+              }}
+              secureTextEntry={showpassword}
+            />
+            <Pressable
+              className="min-w-fit p-3"
+              onPress={() => {
+                Setshowpass(!showpassword);
+              }}
+            >
+              <MaterialIcons
+                name={showpassword ? "visibility-off" : "visibility"}
+                size={24}
+                color={"black"}
+              />
+            </Pressable>
+          </View>
           <Text
             onPress={onClickAdd}
-            className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
+            className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
           >
             Submit
           </Text>

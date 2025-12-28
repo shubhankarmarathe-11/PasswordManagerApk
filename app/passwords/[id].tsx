@@ -3,8 +3,11 @@ import { router, useLocalSearchParams } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
+
+import { Decryptdata, Encryptdata } from "@/utils/cryptofunctions";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const id = () => {
   const { passid } = useLocalSearchParams();
@@ -13,12 +16,20 @@ const id = () => {
   const [username, Setusername] = useState("");
   const [password, Setpassword] = useState("");
 
+  const [showpassword, Setshowpass] = useState(true);
+
   async function onClickUpdate() {
     const userid = await secureStore.getItemAsync("userid");
     const db = await sqlite.openDatabaseAsync("passwords.db");
+
+    let encrypteddata = await Encryptdata(String(password));
+
+    if (encrypteddata == false)
+      return showToast("error", "Error", "Please try again ");
+
     let result = await db.runAsync(
       "UPDATE allpasswords SET title = ?, username = ?, password = ? WHERE id = ? AND userid = ?",
-      [title, username, password, Number(passid), Number(userid)]
+      [title, username, encrypteddata, Number(passid), Number(userid)]
     );
     if (result.changes === 1) {
       showToast("success", "Updated", "Password Updated");
@@ -29,6 +40,7 @@ const id = () => {
       showToast("error", "Error", "Nothing was Updated");
     }
   }
+
   async function onClickDelete() {
     const userid = await secureStore.getItemAsync("userid");
     const db = await sqlite.openDatabaseAsync("passwords.db");
@@ -56,7 +68,13 @@ const id = () => {
       );
       Settitle(result.title);
       Setusername(result.username);
-      Setpassword(result.password);
+
+      let decryptdata = await Decryptdata(result.password);
+
+      if (decryptdata == false)
+        return showToast("error", "Error", "Please try again ");
+
+      Setpassword(decryptdata);
     };
     openDb();
   }, []);
@@ -85,14 +103,30 @@ const id = () => {
           }}
         />
         <Text className="font-bold">Password</Text>
-        <TextInput
-          className="border border-1 rounded p-3 text-lg font-extralight"
-          placeholder="Enter Password"
-          value={password}
-          onChangeText={(text) => {
-            Setpassword(text);
-          }}
-        />
+        <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+          <TextInput
+            className="flex-1 rounded p-3 text-lg font-extralight"
+            placeholder="Enter Password"
+            value={password}
+            onChangeText={(text) => {
+              Setpassword(text);
+            }}
+            secureTextEntry={showpassword}
+          />
+
+          <Pressable
+            className="min-w-fit p-3"
+            onPress={() => {
+              Setshowpass(!showpassword);
+            }}
+          >
+            <MaterialIcons
+              name={showpassword ? "visibility-off" : "visibility"}
+              size={24}
+              color={"black"}
+            />
+          </Pressable>
+        </View>
 
         <Text
           onPress={onClickUpdate}
