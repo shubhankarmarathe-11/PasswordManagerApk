@@ -48,8 +48,6 @@ const Login = () => {
 
       return showToast("error", "Error", "Invalid credentials");
     } catch (error) {
-      console.log(error);
-
       return showToast("error", "Error", "Please try again");
     }
   }
@@ -58,11 +56,19 @@ const Login = () => {
     <>
       <View className=" flex-1 pt-24 w-screen">
         <Toast />
+        <View>
+          <Text className="text-center text-2xl font-bold">
+            Welcome to Password Manager 🔐
+          </Text>
+          <Text className="text-center text-sm text-gray-500">
+            Designed & developed by Shubhankar Marathe.
+          </Text>
+        </View>
         <View className="flex flex-col items-center p-5 w-auto overflow-y-auto justify-center h-3/4 m-3  rounded-md  gap-8 ">
           <Text className=" text-5xl font-bold ">Login Page</Text>
           <Text className="font-bold ">Login to access your passwords .</Text>
           <TextInput
-            className="border w-full  rounded-2xl p-3 py-5 "
+            className="border w-full  rounded-2xl p-3 py-5 text-black"
             keyboardType="email-address"
             placeholder="Enter Email"
             onChangeText={(text) => {
@@ -72,7 +78,7 @@ const Login = () => {
 
           <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
             <TextInput
-              className="flex-1 rounded-2xl p-3 py-5 "
+              className="flex-1 rounded-2xl p-3 py-5 text-black"
               keyboardType="default"
               secureTextEntry={showpassword}
               placeholder="Enter Password"
@@ -93,14 +99,14 @@ const Login = () => {
               />
             </Pressable>
           </View>
-          <View className="w-full text-left">
+          {/* <View className="w-full text-left">
             <Link
               className="underline underline-offset-8 text-violet-700 "
               href={"/auth/ForgotPassword"}
             >
               Forgot password ?
             </Link>
-          </View>
+          </View> */}
           <View className="bg-black w-fit rounded-xl py-4 px-8 flex items-center justify-center shadow-2xl elevation-2xl ">
             <Text onPress={onClickLogin} className="text-white ">
               Login Now

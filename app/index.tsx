@@ -37,7 +37,6 @@ export default function App() {
         await db.closeAsync();
         return router.replace("/auth/Login");
       } catch (error) {
-        console.log(error);
         return showToast("error", "Error", "Please try again");
       }
     };

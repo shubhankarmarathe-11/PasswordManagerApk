@@ -29,7 +29,6 @@ const Settings = () => {
 
         await SetUser(result);
       } catch (error) {
-        console.log(error);
         return showToast("error", "Error", "please try again");
       }
     };
@@ -45,14 +44,14 @@ const Settings = () => {
       <View className="gap-5 p-3">
         <Text className="text-lg font-bold text-center">Settings</Text>
         <View className="w-full bg-gray-700 p-3 rounded-md flex justify-center items-center">
-          <Image className="w-32 h-32 rounded-full" source={img} />
+          <Image className="w-32 h-32 rounded-full bg-white" source={img} />
           <Text className="text-lg font-bold text-white">{user.username}</Text>
           <Text className="text-lg font-bold text-white">{user.email}</Text>
           <Text className="text-lg font-bold text-white">{user.mobilenum}</Text>
         </View>
 
         <Link
-          href={"/auth/ForgotPassword"}
+          href={"/auth/ChangePassword"}
           className="text-red-500 text-lg font-bold"
         >
           Change Password

@@ -1,21 +1,14 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Crypto from "expo-crypto";
-import { useNetworkState } from "expo-network";
 import { Link, useRouter } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { showToast } from "../../utils/ShowMessage";
 
 const RegisterUser = () => {
-  const networkState = useNetworkState();
-  useEffect(() => {
-    console.log(`Current network type: 
-  ${networkState.isInternetReachable}`);
-  }, []);
-
   const [username, Setusername] = useState("");
   const [email, Setemail] = useState("");
   const [phone, Setphone] = useState("");
@@ -59,8 +52,6 @@ const RegisterUser = () => {
       await secureStore.setItemAsync("userid", String(r.lastInsertRowId));
       router.replace("/tabs/Homepage");
     } catch (error) {
-      console.log(error);
-
       return showToast("error", "Error", "Please try again");
     }
   }
@@ -74,7 +65,7 @@ const RegisterUser = () => {
           Create account to keep passwords secure .
         </Text>
         <TextInput
-          className="border w-full  rounded-2xl p-3 py-5 "
+          className="border w-full  rounded-2xl p-3 py-5 text-black"
           keyboardType="default"
           placeholder="Enter Name"
           onChangeText={(text) => {
@@ -82,7 +73,7 @@ const RegisterUser = () => {
           }}
         />
         <TextInput
-          className="border w-full  rounded-2xl p-3 py-5 "
+          className="border w-full  rounded-2xl p-3 py-5 text-black"
           keyboardType="email-address"
           placeholder="Enter Email"
           onChangeText={(text) => {
@@ -90,7 +81,7 @@ const RegisterUser = () => {
           }}
         />
         <TextInput
-          className="border w-full  rounded-2xl p-3 py-5 "
+          className="border w-full  rounded-2xl p-3 py-5 text-black"
           keyboardType="number-pad"
           placeholder="Enter Mobile Number"
           onChangeText={(text) => {
@@ -99,7 +90,7 @@ const RegisterUser = () => {
         />
         <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
           <TextInput
-            className="flex-1 rounded-2xl p-3 py-5 "
+            className="flex-1 rounded-2xl p-3 py-5 text-black"
             keyboardType="default"
             secureTextEntry={showpassword}
             placeholder="Enter Password"

@@ -15,16 +15,14 @@
     "android": {
       "package": "com.shubhankar.passwordmanager",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "updates": {
-        "enabled": false
-      }
+      "predictiveBackGestureEnabled": false
+    },
+    "updates": {
+      "enabled": false
     },
     "web": {
       "output": "static",
@@ -46,21 +44,14 @@
         }
       ],
       [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/Audiowide/Audiowide-Regular.ttf"
-          ]
-        }
-      ],
-      [
         "expo-sqlite",
         {
           "enableFTS": false,
           "useSQLCipher": true
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,

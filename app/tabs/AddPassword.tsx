@@ -53,7 +53,7 @@ const AddPassword = () => {
           <Text className="text-center text-3xl ">Add Password</Text>
           <Text className="font-bold">Website / App name</Text>
           <TextInput
-            className="border border-1 rounded-2xl p-3 text-lg font-extralight"
+            className="border border-1 rounded-2xl p-3 text-lg font-extralight text-black"
             placeholder="Enter Website / App name"
             value={title}
             onChangeText={(text) => {
@@ -62,7 +62,7 @@ const AddPassword = () => {
           />
           <Text className="font-bold">Username / email</Text>
           <TextInput
-            className="border border-1 rounded-2xl p-3 text-lg font-extralight"
+            className="border border-1 rounded-2xl p-3 text-lg font-extralight text-black"
             placeholder="Enter username / email"
             value={username}
             onChangeText={(text) => {
@@ -72,7 +72,7 @@ const AddPassword = () => {
           <Text className="font-bold">Password</Text>
           <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
             <TextInput
-              className="flex-1 rounded-2xl p-3 text-lg font-extralight"
+              className="flex-1 rounded-2xl p-3 text-lg font-extralight text-black"
               placeholder="Enter Password"
               value={password}
               onChangeText={(text) => {

@@ -16,7 +16,7 @@ const AllPasswords = () => {
       try {
         let userid = await secureStore.getItemAsync("userid");
         const db = await sqlite.openDatabaseAsync("passwords.db");
-        console.log(userid);
+
 
         let data = await db.getAllAsync(
           "SELECT id, title FROM allpasswords WHERE userid = (?)",
@@ -26,7 +26,7 @@ const AllPasswords = () => {
         SetSavedPass(data);
         // await db.closeAsync();
       } catch (error) {
-        console.log(error);
+
         return showToast("error", "Error", "please try again");
       }
     };
