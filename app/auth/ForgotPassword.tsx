@@ -51,6 +51,7 @@ const ForgotPassword = () => {
             value={email}
             keyboardType="email-address"
             placeholder="Enter your email"
+            placeholderTextColor={"#1F2937"}
             onChangeText={(text) => {
               Setemail(text);
             }}
@@ -61,6 +62,7 @@ const ForgotPassword = () => {
               keyboardType="default"
               secureTextEntry={showpassword}
               placeholder="Enter previous password"
+              placeholderTextColor={"#1F2937"}
               value={prevpass}
               onChangeText={(text) => {
                 Setprevpass(text);

@@ -70,6 +70,7 @@ const GeneratePassword = () => {
         <Text className="text-center text-3xl ">Generate Password</Text>
         <TextInput
           keyboardType="default"
+          placeholderTextColor={"#1F2937"}
           className="border border-1 rounded-2xl p-3 text-lg font-extralight text-black"
           value={password}
           onChangeText={(text) => Setpassword(text)}

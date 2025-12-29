@@ -88,6 +88,7 @@ const id = () => {
         <TextInput
           className="border border-1 rounded p-3 text-lg font-extralight text-black"
           placeholder="Enter Website / App name"
+          placeholderTextColor={"#1F2937"}
           value={title}
           onChangeText={(text) => {
             Settitle(text);
@@ -97,6 +98,7 @@ const id = () => {
         <TextInput
           className="border border-1 rounded p-3 text-lg font-extralight text-black"
           placeholder="Enter username / email"
+          placeholderTextColor={"#1F2937"}
           value={username}
           onChangeText={(text) => {
             Setusername(text);
@@ -107,6 +109,7 @@ const id = () => {
           <TextInput
             className="flex-1 rounded p-3 text-lg font-extralight text-black"
             placeholder="Enter Password"
+            placeholderTextColor={"#1F2937"}
             value={password}
             onChangeText={(text) => {
               Setpassword(text);

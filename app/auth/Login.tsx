@@ -71,6 +71,7 @@ const Login = () => {
             className="border w-full  rounded-2xl p-3 py-5 text-black"
             keyboardType="email-address"
             placeholder="Enter Email"
+            placeholderTextColor={"#1F2937"}
             onChangeText={(text) => {
               Setemail(text);
             }}
@@ -82,6 +83,7 @@ const Login = () => {
               keyboardType="default"
               secureTextEntry={showpassword}
               placeholder="Enter Password"
+              placeholderTextColor={"#1F2937"}
               onChangeText={(text) => {
                 Setpassword(text);
               }}
