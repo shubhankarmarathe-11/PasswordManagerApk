@@ -42,8 +42,10 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <View className=" flex-1 pt-24 w-screen">
+      <View className="z-50">
         <Toast />
+      </View>
+      <View className=" pt-8 w-screen">
         <View className="flex flex-col items-center p-5 w-auto overflow-y-auto justify-center h-3/4 m-3  rounded-md  gap-8 ">
           <Text className=" text-2xl font-thim ">Update account password</Text>
           <TextInput

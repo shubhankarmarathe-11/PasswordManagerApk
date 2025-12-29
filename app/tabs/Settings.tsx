@@ -39,32 +39,41 @@ const Settings = () => {
   }, [focused]);
 
   return (
-    <View className=" flex-1 pt-24 w-screen ">
-      <Toast />
-      <View className="gap-5 p-3">
-        <Text className="text-lg font-bold text-center">Settings</Text>
-        <View className="w-full bg-gray-700 p-3 rounded-md flex justify-center items-center">
-          <Image className="w-32 h-32 rounded-full bg-white" source={img} />
-          <Text className="text-lg font-bold text-white">{user.username}</Text>
-          <Text className="text-lg font-bold text-white">{user.email}</Text>
-          <Text className="text-lg font-bold text-white">{user.mobilenum}</Text>
-        </View>
-
-        <Link
-          href={"/auth/ChangePassword"}
-          className="text-red-500 text-lg font-bold"
-        >
-          Change Password
-        </Link>
-        <Pressable
-          onPress={() => {
-            router.replace("/auth/Login");
-          }}
-        >
-          <Text className="text-red-500 text-lg font-bold">Logout</Text>
-        </Pressable>
+    <>
+      <View className="z-50">
+        <Toast />
       </View>
-    </View>
+
+      <View className=" pt-8 w-screen ">
+        <View className="gap-5 p-3">
+          <Text className="text-lg font-bold text-center">Settings</Text>
+          <View className="w-full bg-gray-700 p-3 rounded-md flex justify-center items-center">
+            <Image className="w-32 h-32 rounded-full bg-white" source={img} />
+            <Text className="text-lg font-bold text-white">
+              {user.username}
+            </Text>
+            <Text className="text-lg font-bold text-white">{user.email}</Text>
+            <Text className="text-lg font-bold text-white">
+              {user.mobilenum}
+            </Text>
+          </View>
+
+          <Link
+            href={"/auth/ChangePassword"}
+            className="text-red-500 text-lg font-bold"
+          >
+            Change Password
+          </Link>
+          <Pressable
+            onPress={() => {
+              router.replace("/auth/Login");
+            }}
+          >
+            <Text className="text-red-500 text-lg font-bold">Logout</Text>
+          </Pressable>
+        </View>
+      </View>
+    </>
   );
 };
 

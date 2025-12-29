@@ -22,7 +22,7 @@ const AllPasswords = () => {
           "SELECT id, title FROM allpasswords WHERE userid = (?)",
           [userid]
         );
-
+        if(data.length==0) return SetSavedPass([])
         SetSavedPass(data);
         // await db.closeAsync();
       } catch (error) {
@@ -37,8 +37,12 @@ const AllPasswords = () => {
   }, [isFocused]);
 
   return (
-    <View className="flex-1 pt-24 w-screen ">
-      <Toast />
+    <>
+     <View className="z-50">
+        <Toast />
+      </View>
+    
+    <View className="pt-8 w-screen ">
       <View className="p-3 gap-5 flex items-center">
         <Text className="text-lg font-semibold">Saved Passwords</Text>
         <ScrollView className="w-full">
@@ -70,6 +74,7 @@ const AllPasswords = () => {
         </ScrollView>
       </View>
     </View>
+    </>
   );
 };
 

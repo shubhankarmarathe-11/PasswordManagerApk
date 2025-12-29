@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import * as secureStore from "expo-secure-store";
 import * as sqlite from "expo-sqlite";
 import React, { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 const ChangePassword = () => {
@@ -47,79 +47,85 @@ const ChangePassword = () => {
 
   return (
     <>
-      <View className=" flex-1 pt-24 w-screen">
+      <View className="z-50">
         <Toast />
-        <View className="flex flex-col items-center p-5 w-auto overflow-y-auto justify-center h-3/4 m-3  rounded-md  gap-8 ">
-          <Text className=" text-2xl font-thim ">Update account password</Text>
-          <TextInput
-            className="border w-full  rounded-2xl p-3 py-5 text-black"
-            value={email}
-            keyboardType="email-address"
-            placeholder="Enter your email"
-            placeholderTextColor={"#1F2937"}
-            onChangeText={(text) => {
-              Setemail(text);
-            }}
-          />
-          <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+      </View>
+      <View className=" pt-8 w-screen">
+        <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+          <View className="flex flex-col items-center p-5 w-auto overflow-y-auto justify-center h-3/4 m-3  rounded-md  gap-8 ">
+            <Text className=" text-2xl font-thim ">
+              Update account password
+            </Text>
             <TextInput
-              className="flex-1 rounded-2xl p-3 py-5 text-black"
-              keyboardType="default"
-              secureTextEntry={showpassword}
-              placeholder="Enter previous password"
+              className="border w-full  rounded-2xl p-3 py-5 text-black"
+              value={email}
+              keyboardType="email-address"
+              placeholder="Enter your email"
               placeholderTextColor={"#1F2937"}
-              value={prevpass}
               onChangeText={(text) => {
-                Setprevpass(text);
+                Setemail(text);
               }}
             />
-            <Pressable
-              className="min-w-fit p-3"
-              onPress={() => {
-                Setshowpass(!showpassword);
-              }}
-            >
-              <MaterialIcons
-                name={showpassword ? "visibility-off" : "visibility"}
-                size={24}
-                color={"black"}
+            <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+              <TextInput
+                className="flex-1 rounded-2xl p-3 py-5 text-black"
+                keyboardType="default"
+                secureTextEntry={showpassword}
+                placeholder="Enter previous password"
+                placeholderTextColor={"#1F2937"}
+                value={prevpass}
+                onChangeText={(text) => {
+                  Setprevpass(text);
+                }}
               />
+              <Pressable
+                className="min-w-fit p-3"
+                onPress={() => {
+                  Setshowpass(!showpassword);
+                }}
+              >
+                <MaterialIcons
+                  name={showpassword ? "visibility-off" : "visibility"}
+                  size={24}
+                  color={"black"}
+                />
+              </Pressable>
+            </View>
+
+            <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+              <TextInput
+                className="flex-1 rounded-2xl p-3 py-5 text-black"
+                keyboardType="default"
+                secureTextEntry={newshowpassword}
+                placeholder="Enter new password"
+                placeholderTextColor={"#1F2937"}
+                value={newpass}
+                onChangeText={(text) => {
+                  Setnewpass(text);
+                }}
+              />
+              <Pressable
+                className="min-w-fit p-3"
+                onPress={() => {
+                  Setnewshowpass(!newshowpassword);
+                }}
+              >
+                <MaterialIcons
+                  name={newshowpassword ? "visibility-off" : "visibility"}
+                  size={24}
+                  color={"black"}
+                />
+              </Pressable>
+            </View>
+
+            <Pressable
+              onPress={ClickonUpdate}
+              className="w-full bg-gray-700 p-5 flex justify-center items-center rounded-2xl"
+            >
+              <Text className="text-white">Update Password</Text>
             </Pressable>
           </View>
-
-          <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
-            <TextInput
-              className="flex-1 rounded-2xl p-3 py-5 text-black"
-              keyboardType="default"
-              secureTextEntry={newshowpassword}
-              placeholder="Enter new password"
-              placeholderTextColor={"#1F2937"}
-              value={newpass}
-              onChangeText={(text) => {
-                Setnewpass(text);
-              }}
-            />
-            <Pressable
-              className="min-w-fit p-3"
-              onPress={() => {
-                Setnewshowpass(!newshowpassword);
-              }}
-            >
-              <MaterialIcons
-                name={newshowpassword ? "visibility-off" : "visibility"}
-                size={24}
-                color={"black"}
-              />
-            </Pressable>
-          </View>
-
-          <Pressable
-            onPress={ClickonUpdate}
-            className="w-full bg-gray-700 p-5 flex justify-center items-center rounded-2xl"
-          >
-            <Text className="text-white">Update Password</Text>
-          </Pressable>
-        </View>
+        </ScrollView>
       </View>
     </>
   );

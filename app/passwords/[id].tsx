@@ -46,14 +46,13 @@ const id = () => {
     const db = await sqlite.openDatabaseAsync("passwords.db");
     let result = await db.runAsync(
       "DELETE FROM allpasswords WHERE id = ? AND userid = ?",
-      [Number(passid), Number(userid)]
+      [Number(passid), userid]
     );
 
     if (result.changes === 1) {
       showToast("success", "Deleted", "Password deleted");
-      setTimeout(() => {
-        router.back();
-      }, 200);
+
+      router.back();
     } else {
       showToast("error", "Error", "Nothing was deleted");
     }
@@ -80,71 +79,75 @@ const id = () => {
   }, []);
 
   return (
-    <View className="flex-1 pt-24 w-screen ">
-      <Toast />
-      <View className="p-3 gap-5">
-        <Text className="text-center text-3xl ">Edit Password</Text>
-        <Text className="font-bold">Website / App name</Text>
-        <TextInput
-          className="border border-1 rounded p-3 text-lg font-extralight text-black"
-          placeholder="Enter Website / App name"
-          placeholderTextColor={"#1F2937"}
-          value={title}
-          onChangeText={(text) => {
-            Settitle(text);
-          }}
-        />
-        <Text className="font-bold">Username / email</Text>
-        <TextInput
-          className="border border-1 rounded p-3 text-lg font-extralight text-black"
-          placeholder="Enter username / email"
-          placeholderTextColor={"#1F2937"}
-          value={username}
-          onChangeText={(text) => {
-            Setusername(text);
-          }}
-        />
-        <Text className="font-bold">Password</Text>
-        <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
-          <TextInput
-            className="flex-1 rounded p-3 text-lg font-extralight text-black"
-            placeholder="Enter Password"
-            placeholderTextColor={"#1F2937"}
-            value={password}
-            onChangeText={(text) => {
-              Setpassword(text);
-            }}
-            secureTextEntry={showpassword}
-          />
-
-          <Pressable
-            className="min-w-fit p-3"
-            onPress={() => {
-              Setshowpass(!showpassword);
-            }}
-          >
-            <MaterialIcons
-              name={showpassword ? "visibility-off" : "visibility"}
-              size={24}
-              color={"black"}
-            />
-          </Pressable>
-        </View>
-
-        <Text
-          onPress={onClickUpdate}
-          className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
-        >
-          Update
-        </Text>
-        <Text
-          onPress={onClickDelete}
-          className="w-full bg-red-700 text-center text-white rounded-md p-5 font-bold "
-        >
-          Delete
-        </Text>
+    <>
+      <View className="z-50">
+        <Toast />
       </View>
-    </View>
+      <View className="pt-8 w-screen ">
+        <View className="p-3 gap-5">
+          <Text className="text-center text-3xl ">Edit Password</Text>
+          <Text className="font-bold">Website / App name</Text>
+          <TextInput
+            className="border border-1 rounded p-3 text-lg font-extralight text-black"
+            placeholder="Enter Website / App name"
+            placeholderTextColor={"#1F2937"}
+            value={title}
+            onChangeText={(text) => {
+              Settitle(text);
+            }}
+          />
+          <Text className="font-bold">Username / email</Text>
+          <TextInput
+            className="border border-1 rounded p-3 text-lg font-extralight text-black"
+            placeholder="Enter username / email"
+            placeholderTextColor={"#1F2937"}
+            value={username}
+            onChangeText={(text) => {
+              Setusername(text);
+            }}
+          />
+          <Text className="font-bold">Password</Text>
+          <View className="border border-1 rounded-2xl  flex flex-row items-center w-full gap-2">
+            <TextInput
+              className="flex-1 rounded p-3 text-lg font-extralight text-black"
+              placeholder="Enter Password"
+              placeholderTextColor={"#1F2937"}
+              value={password}
+              onChangeText={(text) => {
+                Setpassword(text);
+              }}
+              secureTextEntry={showpassword}
+            />
+
+            <Pressable
+              className="min-w-fit p-3"
+              onPress={() => {
+                Setshowpass(!showpassword);
+              }}
+            >
+              <MaterialIcons
+                name={showpassword ? "visibility-off" : "visibility"}
+                size={24}
+                color={"black"}
+              />
+            </Pressable>
+          </View>
+
+          <Text
+            onPress={onClickUpdate}
+            className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
+          >
+            Update
+          </Text>
+          <Text
+            onPress={onClickDelete}
+            className="w-full bg-red-700 text-center text-white rounded-md p-5 font-bold "
+          >
+            Delete
+          </Text>
+        </View>
+      </View>
+    </>
   );
 };
 

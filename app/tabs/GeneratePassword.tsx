@@ -2,7 +2,7 @@ import { showToast } from "@/utils/ShowMessage";
 import { Checkbox } from "expo-checkbox";
 import * as Clipboard from "expo-clipboard";
 import { useEffect, useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 const GeneratePassword = () => {
@@ -64,104 +64,111 @@ const GeneratePassword = () => {
   ]);
 
   return (
-    <View className=" flex-1 pt-24 w-screen ">
-      <Toast />
-      <View className="p-3 gap-8">
-        <Text className="text-center text-3xl ">Generate Password</Text>
-        <TextInput
-          keyboardType="default"
-          placeholderTextColor={"#1F2937"}
-          className="border border-1 rounded-2xl p-3 text-lg font-extralight text-black"
-          value={password}
-          onChangeText={(text) => Setpassword(text)}
-        />
-
-        <Text className="font-bold text-lg">Select Options</Text>
-
-        <View className="flex flex-row items-center">
-          <Checkbox
-            className="my-3"
-            value={isCheckedlower}
-            onValueChange={setCheckedlower}
-            color={isCheckedlower ? "#4630EB" : undefined}
-          />
-          <Text className="mx-5 text-lg font-bold">
-            Include lower case alphabets.
-          </Text>
-        </View>
-        <View className="flex flex-row items-center">
-          <Checkbox
-            className="my-3"
-            value={isCheckedupper}
-            onValueChange={setCheckedupper}
-            color={isCheckedupper ? "#4630EB" : undefined}
-          />
-          <Text className="mx-5 text-lg font-bold">
-            Include upper case alphabets.
-          </Text>
-        </View>
-        <View className="flex flex-row items-center">
-          <Checkbox
-            className="my-3"
-            value={isCheckedchar}
-            onValueChange={setCheckedchar}
-            color={isCheckedchar ? "#4630EB" : undefined}
-          />
-          <Text className="mx-5 text-lg font-bold">
-            Include special character.
-          </Text>
-        </View>
-        <View className="flex flex-row items-center">
-          <Checkbox
-            className="my-3"
-            value={isCheckednum}
-            onValueChange={setCheckednum}
-            color={isCheckednum ? "#4630EB" : undefined}
-          />
-          <Text className="mx-5 text-lg font-bold">Include numbers.</Text>
-        </View>
-
-        <Text className="font-bold text-lg">Select Password length</Text>
-        <View className="flex flex-row items-center justify-around">
-          <Text
-            onPress={() => {
-              onClicklength(8);
-            }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 8 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
-          >
-            8
-          </Text>
-          <Text
-            onPress={() => {
-              onClicklength(12);
-            }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 12 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
-          >
-            12
-          </Text>
-          <Text
-            onPress={() => {
-              onClicklength(16);
-            }}
-            className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 16 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
-          >
-            16
-          </Text>
-        </View>
-        <Text
-          onPress={GeneratePasswordfun}
-          className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
-        >
-          Generate
-        </Text>
-        <Text
-          onPress={copyToClipboard}
-          className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
-        >
-          Copy to Clipboard
-        </Text>
+    <>
+      <View className="z-50">
+        <Toast />
       </View>
-    </View>
+      <View className="pt-8 w-screen ">
+        <View className="p-3 gap-8">
+          <Text className="text-center text-3xl ">Generate Password</Text>
+          <TextInput
+            keyboardType="default"
+            placeholderTextColor={"#1F2937"}
+            className="border border-1 rounded-2xl p-3 text-lg font-extralight text-black"
+            value={password}
+            onChangeText={(text) => Setpassword(text)}
+          />
+          <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+            <View className="p-3 gap-8">
+              <Text className="font-bold text-lg">Select Options</Text>
+
+              <View className="flex flex-row items-center">
+                <Checkbox
+                  className="my-3"
+                  value={isCheckedlower}
+                  onValueChange={setCheckedlower}
+                  color={isCheckedlower ? "#4630EB" : undefined}
+                />
+                <Text className="mx-5 text-lg font-bold">
+                  Include lower case alphabets.
+                </Text>
+              </View>
+              <View className="flex flex-row items-center">
+                <Checkbox
+                  className="my-3"
+                  value={isCheckedupper}
+                  onValueChange={setCheckedupper}
+                  color={isCheckedupper ? "#4630EB" : undefined}
+                />
+                <Text className="mx-5 text-lg font-bold">
+                  Include upper case alphabets.
+                </Text>
+              </View>
+              <View className="flex flex-row items-center">
+                <Checkbox
+                  className="my-3"
+                  value={isCheckedchar}
+                  onValueChange={setCheckedchar}
+                  color={isCheckedchar ? "#4630EB" : undefined}
+                />
+                <Text className="mx-5 text-lg font-bold">
+                  Include special character.
+                </Text>
+              </View>
+              <View className="flex flex-row items-center">
+                <Checkbox
+                  className="my-3"
+                  value={isCheckednum}
+                  onValueChange={setCheckednum}
+                  color={isCheckednum ? "#4630EB" : undefined}
+                />
+                <Text className="mx-5 text-lg font-bold">Include numbers.</Text>
+              </View>
+
+              <Text className="font-bold text-lg">Select Password length</Text>
+              <View className="flex flex-row items-center justify-around">
+                <Text
+                  onPress={() => {
+                    onClicklength(8);
+                  }}
+                  className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 8 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
+                >
+                  8
+                </Text>
+                <Text
+                  onPress={() => {
+                    onClicklength(12);
+                  }}
+                  className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 12 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
+                >
+                  12
+                </Text>
+                <Text
+                  onPress={() => {
+                    onClicklength(16);
+                  }}
+                  className={`p-2 border border-1 rounded-md w-12 text-center ${selectlength == 16 ? "border-gray-700 text-white bg-gray-700" : "border-black"}`}
+                >
+                  16
+                </Text>
+              </View>
+              <Text
+                onPress={GeneratePasswordfun}
+                className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
+              >
+                Generate
+              </Text>
+              <Text
+                onPress={copyToClipboard}
+                className="w-full bg-gray-700 text-center text-white rounded-2xl p-5 font-bold "
+              >
+                Copy to Clipboard
+              </Text>
+            </View>
+          </ScrollView>
+        </View>
+      </View>
+    </>
   );
 };
 

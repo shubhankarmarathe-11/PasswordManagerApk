@@ -39,6 +39,7 @@ const AddPassword = () => {
       Settitle("");
       Setusername("");
       Setpassword("");
+      await db.closeAsync();
       return showToast("success", "Success", "Successfully added");
     } catch (error) {
       return showToast("error", "Error", "Please try again ");
@@ -47,8 +48,10 @@ const AddPassword = () => {
 
   return (
     <>
-      <View className=" flex-1 pt-24 w-screen ">
+      <View className="z-50">
         <Toast />
+      </View>
+      <View className=" pt-8 w-screen ">
         <View className="p-3 gap-5">
           <Text className="text-center text-3xl ">Add Password</Text>
           <Text className="font-bold">Website / App name</Text>
