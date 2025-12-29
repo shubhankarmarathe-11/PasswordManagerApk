@@ -1,50 +1,65 @@
-# Welcome to your Expo app 👋
+# 🔐 Password Manager App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Welcome to **Password Manager** 👋  
+A secure mobile application built using **Expo + React Native**.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 About the App
 
-   ```bash
-   npm install
-   ```
+This app is designed to securely store passwords using a **local SQLite database** with Expo.  
+It works completely **offline**, ensuring your data stays on your device.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🛠️ Tech Stack
 
-In the output, you'll find options to open the app in a
+- Expo
+- React Native
+- Expo SQLite
+- Hermes Engine
+- Android
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🔒 Security Features
 
-## Get a fresh project
+- Local password storage using SQLite
+- Offline-first architecture
+- No cloud storage in the current version
+- Optimized for performance and reduced app size
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
+## 🔮 Upcoming Features
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- 🔄 Sync passwords with a website
+- 📧 Email authentication
+- 🔐 Fingerprint authentication (Android)
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📥 Download App (Android)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**APK Download:**  
+https://expo.dev/artifacts/eas/3KiY7FQiwwHqQXuDJ17Sz7.apk
 
-## Join the community
+> ⚠️ This is a preview build intended for testing purposes.
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 👨‍💻 Developer
+
+**Shubhankar Marathe**  
+BCA Student | React Native Developer  
+
+---
+
+## 📄 License
+
+This project is created for learning and portfolio purposes.
+
+---
+
+⭐ If you like this project, consider giving it a star!
+
