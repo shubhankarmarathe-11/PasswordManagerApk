@@ -1,12 +1,12 @@
 import * as Crypto from "expo-crypto";
 import { Link, useRouter } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { showToast } from "../../utils/ShowMessage";
 
+import { getDB } from "@/Storage/database";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
   const router = useRouter();
 
   const emailRegex = new RegExp(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
 
   async function onClickLogin() {
@@ -28,16 +28,16 @@ const Login = () => {
       return showToast("error", "Error", "Please enter password");
 
     try {
-      const db = await sqlite.openDatabaseAsync("passwords.db");
+      const db = await getDB();
 
       let hashedpass = await Crypto.digestStringAsync(
         Crypto.CryptoDigestAlgorithm.SHA256,
-        password
+        password,
       );
 
       let user = await db.getFirstAsync(
         "SELECT * FROM USERS WHERE email = ? AND password = ?",
-        [String(email), hashedpass]
+        [String(email), hashedpass],
       );
 
       if (user) {

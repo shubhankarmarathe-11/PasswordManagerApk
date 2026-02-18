@@ -1,8 +1,8 @@
+import { getDB } from "@/Storage/database";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Crypto from "expo-crypto";
 import { Link, useRouter } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -19,7 +19,7 @@ const RegisterUser = () => {
   const router = useRouter();
 
   const emailRegex = new RegExp(
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
 
   async function onClickRegister() {
@@ -35,19 +35,19 @@ const RegisterUser = () => {
     if (password == "" || password.length < 8)
       return showToast("error", "Error", "Please enter password");
 
-    const db = await sqlite.openDatabaseAsync("passwords.db");
+    const db = await getDB();
 
     let hashedpass = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
-      password
+      password,
     );
 
     try {
       let r = await db.runAsync(
         "INSERT INTO USERS (username, email, mobilenum, password) VALUES (?, ?, ?, ?)",
-        [String(username), String(email), String(phone), hashedpass]
+        [String(username), String(email), String(phone), hashedpass],
       );
-      await db.closeAsync();
+
       await secureStore.setItemAsync("username", username);
       await secureStore.setItemAsync("userid", String(r.lastInsertRowId));
       router.replace("/tabs/Homepage");

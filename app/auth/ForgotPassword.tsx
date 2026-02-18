@@ -1,9 +1,9 @@
+import { getDB } from "@/Storage/database";
 import { showToast } from "@/utils/ShowMessage";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Crypto from "expo-crypto";
 import { router } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -21,14 +21,14 @@ const ForgotPassword = () => {
 
     let hashedpass = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
-      prevpass
+      prevpass,
     );
 
     const userid = await secureStore.getItemAsync("userid");
-    const db = await sqlite.openDatabaseAsync("passwords.db");
+    const db = await getDB();
     let result = await db.runAsync(
       "UPDATE USERS SET password = ? WHERE id = ? AND email ?",
-      [hashedpass, Number(userid), email]
+      [hashedpass, Number(userid), email],
     );
     if (result.changes === 1) {
       showToast("success", "Updated", "Password Updated");

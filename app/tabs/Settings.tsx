@@ -1,8 +1,8 @@
+import { getDB } from "@/Storage/database";
 import { showToast } from "@/utils/ShowMessage";
 import { useIsFocused } from "@react-navigation/native";
 import { Link, router } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -18,10 +18,10 @@ const Settings = () => {
       try {
         const userid = await secureStore.getItemAsync("userid");
 
-        const db = await sqlite.openDatabaseAsync("passwords.db");
+        const db = await getDB();
 
         let result: Object | null = await db.getFirstAsync(
-          `SELECT id,username,email,mobilenum FROM USERS WHERE id = ${Number(userid)}`
+          `SELECT id,username,email,mobilenum FROM USERS WHERE id = ${Number(userid)}`,
         );
 
         if (result == null)

@@ -1,8 +1,8 @@
+import { getDB } from "@/Storage/database";
 import { showToast } from "@/utils/ShowMessage";
 import { useIsFocused } from "@react-navigation/native";
 import { router } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
@@ -25,11 +25,11 @@ const Homepage = () => {
       }
       try {
         Setuser(String(username));
-        const db = await sqlite.openDatabaseAsync("passwords.db");
+        const db = await getDB();
 
         let result = await db.getAllAsync(
           "SELECT id FROM allpasswords WHERE userid = (?)",
-          [String(userid)]
+          [String(userid)],
         );
 
         Settotalpass(result.length);

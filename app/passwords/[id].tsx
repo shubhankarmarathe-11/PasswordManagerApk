@@ -1,7 +1,7 @@
+import { getDB } from "@/Storage/database";
 import { showToast } from "@/utils/ShowMessage";
 import { router, useLocalSearchParams } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -20,7 +20,7 @@ const id = () => {
 
   async function onClickUpdate() {
     const userid = await secureStore.getItemAsync("userid");
-    const db = await sqlite.openDatabaseAsync("passwords.db");
+    const db = await getDB();
 
     let encrypteddata = await Encryptdata(String(password));
 
@@ -29,7 +29,7 @@ const id = () => {
 
     let result = await db.runAsync(
       "UPDATE allpasswords SET title = ?, username = ?, password = ? WHERE id = ? AND userid = ?",
-      [title, username, encrypteddata, Number(passid), Number(userid)]
+      [title, username, encrypteddata, Number(passid), Number(userid)],
     );
     if (result.changes === 1) {
       showToast("success", "Updated", "Password Updated");
@@ -43,10 +43,10 @@ const id = () => {
 
   async function onClickDelete() {
     const userid = await secureStore.getItemAsync("userid");
-    const db = await sqlite.openDatabaseAsync("passwords.db");
+    const db = await getDB();
     let result = await db.runAsync(
       "DELETE FROM allpasswords WHERE id = ? AND userid = ?",
-      [Number(passid), userid]
+      [Number(passid), userid],
     );
 
     if (result.changes === 1) {
@@ -60,10 +60,10 @@ const id = () => {
 
   useEffect(() => {
     const openDb = async () => {
-      const db = await sqlite.openDatabaseAsync("passwords.db");
+      const db = await getDB();
       let result = await db.getFirstAsync(
         "SELECT * FROM allpasswords WHERE id = ?",
-        [passid]
+        [passid],
       );
       Settitle(result.title);
       Setusername(result.username);
@@ -135,13 +135,13 @@ const id = () => {
 
           <Text
             onPress={onClickUpdate}
-            className="w-full bg-violet-700 text-center text-white rounded-md p-5 font-bold "
+            className="w-full bg-violet-200 text-center text-white rounded-md p-5 font-bold "
           >
             Update
           </Text>
           <Text
             onPress={onClickDelete}
-            className="w-full bg-red-700 text-center text-white rounded-md p-5 font-bold "
+            className="w-full bg-red-300 text-center text-white rounded-md p-5 font-bold "
           >
             Delete
           </Text>

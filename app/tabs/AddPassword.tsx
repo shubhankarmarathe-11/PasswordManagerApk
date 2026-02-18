@@ -1,9 +1,9 @@
+import { getDB } from "@/Storage/database";
 import { Encryptdata } from "@/utils/cryptofunctions";
 import { showToast } from "@/utils/ShowMessage";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import * as secureStore from "expo-secure-store";
-import * as sqlite from "expo-sqlite";
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -28,18 +28,18 @@ const AddPassword = () => {
       return showToast("error", "Error", "Please try again ");
 
     try {
-      const db = await sqlite.openDatabaseAsync("passwords.db");
+      const db = await getDB();
       const userid = await secureStore.getItemAsync("userid");
       if (userid == null) return router.replace("/auth/Login");
 
       let r = await db.runAsync(
         "INSERT INTO allpasswords (userid, title, username, password) VALUES (?, ?, ?, ?)",
-        [userid, title, username, encrypteddata]
+        [userid, title, username, encrypteddata],
       );
       Settitle("");
       Setusername("");
       Setpassword("");
-      await db.closeAsync();
+
       return showToast("success", "Success", "Successfully added");
     } catch (error) {
       return showToast("error", "Error", "Please try again ");
