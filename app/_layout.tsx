@@ -1,24 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { NAV_THEME } from "@/lib/theme";
+import { ThemeProvider } from "@react-navigation/native";
+import { PortalHost } from "@rn-primitives/portal";
+import { Stack } from "expo-router";
+import { StatusBar } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { openDb } from "@/database/db";
+
+import "../global.css";
+import { useEffect } from "react";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: "(tabs)",
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    const db = openDb()
+      .then(() => {
+        console.log("working");
+      })
+      .catch(() => {
+        console.log("not working");
+      });
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
+    <ThemeProvider value={NAV_THEME["light"]}>
+      <SafeAreaProvider>
+        <StatusBar barStyle={"dark-content"} />
+
+        <Stack>
+          <Stack.Screen name="(Pages)" options={{ headerShown: false }} />
+        </Stack>
+        <PortalHost />
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
