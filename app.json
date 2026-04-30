@@ -1,17 +1,18 @@
 {
   "expo": {
-    "name": "PasswordManagerExpoApp",
-    "slug": "PasswordManagerExpoApp",
+    "name": "Keyper",
+    "slug": "Keyper",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "passwordmanagerexpoapp",
+    "scheme": "Keyper",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.shubhankarmarathe.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -66,6 +67,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "339de999-9c1b-437b-a541-6516505db63c"
+      }
+    },
+    "owner": "master80"
   }
 }
