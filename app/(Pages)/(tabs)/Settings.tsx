@@ -1,22 +1,66 @@
-import { Text } from "@/components/ui/text";
-import { View, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  KeyRound,
-  User,
-  Lock,
-  Fingerprint,
-  LogOut,
-  Delete,
-} from "lucide-react-native";
-import { Separator } from "@/components/ui/separator";
-import { useRouter } from "expo-router";
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Text } from "@/components/ui/text";
+import { clearData, getData, saveData } from "@/database/Cache";
+import { useRouter } from "expo-router";
+import {
+  Delete,
+  Fingerprint,
+  KeyRound,
+  Lock,
+  LogOut,
+  User,
+} from "lucide-react-native";
+import { useEffect, useState } from "react";
+import { Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+// import { AlertDialog, } from "@/components/ui/alert-dialog";
 
 export default function SettingPage() {
   const router = useRouter();
 
-  function LogoutFunction() {}
+  const [username, SetUsername] = useState("");
+  const [useBio, SetuseBio] = useState(false);
+
+  async function SetBiomatric() {
+    if (useBio) {
+      await saveData("usebiomatric", "false");
+      SetuseBio(false);
+    } else {
+      await saveData("usebiomatric", "true");
+      SetuseBio(true);
+    }
+  }
+
+  async function CheckIsLoggedIn() {
+    let getusername = await getData("username");
+    let getusebiomatric = await getData("usebiomatric");
+
+    if (getusername != null && getusebiomatric != null) {
+      if (getusebiomatric == "true") {
+        SetuseBio(true);
+      } else {
+        SetuseBio(false);
+      }
+      return SetUsername(getusername);
+    }
+  }
+
+  useEffect(() => {
+    CheckIsLoggedIn();
+  }, []);
+
+  async function LogoutFunction() {
+    await clearData("isLoggedIn");
+    await clearData("_id");
+    await clearData("username");
+    await clearData("email");
+    await clearData("usebiomatric");
+    await clearData("pass_id");
+
+    router.replace("/(Pages)/(Auth)/Login");
+  }
 
   function DeleteAccountFunction() {}
 
@@ -28,7 +72,7 @@ export default function SettingPage() {
             <User />
             <Text className="text-3xl font-bold">Current Account</Text>
           </View>
-          <Text className="text-xl">Shubhankar Marathe</Text>
+          <Text className="text-xl">{username}</Text>
         </View>
 
         <Separator />
@@ -68,16 +112,13 @@ export default function SettingPage() {
 
         <Text className="my-2">Use FingerPrint to unlock</Text>
         <Card className="my-3">
-          <Pressable
-            onPress={() => {
-              router.push("/(Pages)/(tabs)/Vault");
-            }}
-          >
-            <CardContent className="flex flex-row gap-3">
+          <CardContent className="flex flex-row gap-3 items-center justify-between">
+            <View className="flex flex-row gap-2 items-center">
               <Fingerprint size={28} />
               <Text>FingerPrint</Text>
-            </CardContent>
-          </Pressable>
+            </View>
+            <Switch checked={useBio} onCheckedChange={SetBiomatric} />
+          </CardContent>
         </Card>
 
         <Separator />

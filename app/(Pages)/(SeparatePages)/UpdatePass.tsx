@@ -2,16 +2,65 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Text } from "@/components/ui/text";
-import { useState } from "react";
+import { getData } from "@/database/Cache";
+import { getDB } from "@/database/db";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function UpdatePasswordPage() {
+  const router = useRouter();
   const [PassWordDetail, SetPasswordDetail] = useState({
     App: "",
     username: "",
     Password: "",
   });
+
+  const FetchData = async () => {
+    try {
+      const getId = await getData("pass_id");
+
+      const db = await getDB();
+
+      const Rows = await db.getAllAsync(
+        `SELECT * FROM StoredPasswords WHERE id=${getId}`,
+      );
+
+      SetPasswordDetail({
+        App: Rows[0].appname,
+        username: Rows[0].username,
+        Password: Rows[0].password,
+      });
+    } catch (err) {}
+  };
+
+  const DeleteData = async () => {
+    try {
+      const getId = await getData("pass_id");
+      const db = await getDB();
+      const result = await db.runAsync(
+        `DELETE FROM StoredPasswords WHERE id=${getId}`,
+      );
+
+      router.replace("/(Pages)/(tabs)/Vault");
+    } catch (err) {}
+  };
+  const UpdateData = async () => {
+    try {
+      const getId = await getData("pass_id");
+      const db = await getDB();
+      const result = await db.runAsync(
+        `UPDATE StoredPasswords SET appname= '${PassWordDetail.App}',username='${PassWordDetail.username}',password='${PassWordDetail.Password}'  WHERE id=${getId}`,
+      );
+
+      router.replace("/(Pages)/(tabs)/Vault");
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    FetchData();
+  }, []);
 
   return (
     <>
@@ -53,11 +102,13 @@ export default function UpdatePasswordPage() {
 
         <Separator />
 
-        <Button className="my-3">
+        <Button className="my-3" onPress={UpdateData}>
           <Text>Update </Text>
         </Button>
 
-        <Text className="text-center text-red-500 my-3">Delete </Text>
+        <Text onPress={DeleteData} className="text-center text-red-500 my-3">
+          Delete{" "}
+        </Text>
       </SafeAreaView>
     </>
   );

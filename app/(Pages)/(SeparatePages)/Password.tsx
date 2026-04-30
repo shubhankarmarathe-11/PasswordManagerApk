@@ -85,8 +85,18 @@ export default function PasswordPage() {
         <Card className="my-3">
           <CardContent>
             <View className="flex gap-2">
-              <Text>Password</Text>
-              <Input className="text-black" editable={false} value={Password} />
+              <Input
+                style={{
+                  backgroundColor: "white",
+                  borderWidth: 0,
+                  borderBottomWidth: 1,
+                  borderBottomColor: "black",
+                }}
+                className="text-black"
+                editable={false}
+                value={Password}
+                placeholder="Generate Strong Password"
+              />
             </View>
 
             <View className="flex flex-row my-5 items-center justify-between">

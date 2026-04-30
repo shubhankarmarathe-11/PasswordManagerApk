@@ -5,26 +5,13 @@ import { Stack } from "expo-router";
 import { StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { openDb } from "@/database/db";
-
 import "../global.css";
-import { useEffect } from "react";
 
 export const unstable_settings = {
   anchor: "(tabs)",
 };
 
 export default function RootLayout() {
-  useEffect(() => {
-    const db = openDb()
-      .then(() => {
-        console.log("working");
-      })
-      .catch(() => {
-        console.log("not working");
-      });
-  }, []);
-
   return (
     <ThemeProvider value={NAV_THEME["light"]}>
       <SafeAreaProvider>

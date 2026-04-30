@@ -10,6 +10,8 @@ export default function RootLayout() {
         <Stack.Screen name="UpdatePass" options={{ headerShown: false }} />
         <Stack.Screen name="MasterPassword" options={{ headerShown: false }} />
         <Stack.Screen name="Password" options={{ headerShown: false }} />
+        <Stack.Screen name="AddNewPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="forgetPassword" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );
