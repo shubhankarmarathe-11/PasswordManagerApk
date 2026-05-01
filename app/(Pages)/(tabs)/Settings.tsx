@@ -1,8 +1,19 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Text } from "@/components/ui/text";
 import { clearData, getData, saveData } from "@/database/Cache";
+import { getDB } from "@/database/db";
 import { useRouter } from "expo-router";
 import {
   Delete,
@@ -15,13 +26,13 @@ import {
 import { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { AlertDialog, } from "@/components/ui/alert-dialog";
 
 export default function SettingPage() {
   const router = useRouter();
 
   const [username, SetUsername] = useState("");
   const [useBio, SetuseBio] = useState(false);
+  const [showAlertdia, SetshowAlertdia] = useState(false);
 
   async function SetBiomatric() {
     if (useBio) {
@@ -62,11 +73,63 @@ export default function SettingPage() {
     router.replace("/(Pages)/(Auth)/");
   }
 
-  function DeleteAccountFunction() {}
+  async function DeleteAccountFunction() {
+    SetshowAlertdia(true);
+  }
+
+  async function onCancelDelete() {
+    SetshowAlertdia(false);
+  }
+
+  async function onClickcontinue() {
+    let getuserid = await getData("_id");
+
+    const db = await getDB();
+
+    await db.execAsync(`
+
+            DELETE FROM UserDetails WHERE id='${parseInt(getuserid)}';
+            DELETE FROM StoredPasswords WHERE account_id='${getuserid}';
+
+              `);
+
+    await clearData("isLoggedIn");
+    await clearData("_id");
+    await clearData("username");
+    await clearData("email");
+    await clearData("usebiomatric");
+    await clearData("pass_id");
+
+    router.replace("/(Pages)/(Auth)/");
+  }
 
   return (
     <>
       <SafeAreaView className="flex-1 m-3">
+        {showAlertdia ? (
+          <>
+            <AlertDialog open={showAlertdia}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onPress={onCancelDelete}>
+                    <Text>Cancel</Text>
+                  </AlertDialogCancel>
+                  <AlertDialogAction onPress={onClickcontinue}>
+                    <Text>Continue</Text>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </>
+        ) : null}
+
         <View className="flex gap-2 my-5">
           <View className="flex flex-row items-center gap-3">
             <User />

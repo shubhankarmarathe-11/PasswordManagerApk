@@ -1,18 +1,21 @@
 {
   "expo": {
-    "name": "Keyper",
-    "slug": "Keyper",
+    "name": "Smart Locker",
+    "slug": "SmartLocker",
     "version": "1.0.0",
+    "jsEngine": "hermes",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "Keyper",
+    "scheme": "Smart Locker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shubhankarmarathe.app"
     },
     "android": {
       "package": "com.shubhankarmarathe.app",
+      "usesCleartextTraffic": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -71,7 +74,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "339de999-9c1b-437b-a541-6516505db63c"
+        "projectId": "651c3979-0c6c-462f-8609-66fa25958c69"
       }
     },
     "owner": "master80"
