@@ -59,7 +59,7 @@ export default function SettingPage() {
     await clearData("usebiomatric");
     await clearData("pass_id");
 
-    router.replace("/(Pages)/(Auth)/Login");
+    router.replace("/(Pages)/(Auth)/");
   }
 
   function DeleteAccountFunction() {}

@@ -68,7 +68,7 @@ export default function MasterPasswordPage() {
       await clearData("usebiomatric");
       await clearData("pass_id");
 
-      router.replace("/(Pages)/(Auth)/Login");
+      router.replace("/(Pages)/(Auth)/");
     } catch (error) {}
   };
 

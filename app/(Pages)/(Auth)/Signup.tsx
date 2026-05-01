@@ -45,7 +45,7 @@ export default function SignupPage() {
           INSERT INTO UserDetails (username, email,password) VALUES ('${auth.Username}','${auth.email}','${auth.Password}');
           `);
 
-      router.replace("/(Pages)/(Auth)/Login");
+      router.replace("/(Pages)/(Auth)/");
     } catch (err) {
       if (err?.message?.includes("UNIQUE constraint failed")) {
         SetAlert({
@@ -155,7 +155,7 @@ export default function SignupPage() {
             <Text
               className="text-blue-800 gap-3 text-center my-5"
               onPress={() => {
-                router.navigate("/Login");
+                router.navigate("/index");
               }}
             >
               Al Ready have an account? Sign in
