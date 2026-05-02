@@ -59,6 +59,9 @@ export default function HomePage() {
       const Rows = await db.getAllAsync(
         `SELECT id,appname FROM StoredPasswords WHERE account_id=${getId}`,
       );
+
+      SetSaved(Rows.length);
+
       newarr = await Rows.reverse();
 
       let newarr2 = [];

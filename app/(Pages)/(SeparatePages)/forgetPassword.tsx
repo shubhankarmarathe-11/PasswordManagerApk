@@ -5,7 +5,7 @@ import { Text } from "@/components/ui/text";
 import { getDB } from "@/database/db";
 import axios from "axios";
 import { CircleAlert } from "lucide-react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,6 +19,14 @@ export default function ForegetPasswordPage() {
   const [showOTP, SETShowotp] = useState(false);
 
   const [pass, Setpass] = useState("");
+  const [refresh, Setrefresh] = useState(false);
+
+  useEffect(() => {
+    SetTotp(0);
+    SETOTP(0);
+    SETShowotp(false);
+    Setpass("");
+  }, [refresh]);
 
   async function CheckOtp() {
     if (Totp == 0) {
@@ -92,7 +100,7 @@ export default function ForegetPasswordPage() {
       }
 
       await axios
-        .post("http://passwordmanager.shubhankarmarathe.online/send-otp", {
+        .post("https://api.shubhankarmarathe.online/send-otp", {
           email: email,
           otp: otp,
         })
@@ -151,8 +159,11 @@ export default function ForegetPasswordPage() {
             onChangeText={(text) => {
               setemail(text);
             }}
+            onChange={() => {
+              Setrefresh(!refresh);
+            }}
           />
-          <Button onPress={SendOtp}>
+          <Button disabled={showOTP ? true : false} onPress={SendOtp}>
             <Text>Send OTP</Text>
           </Button>
         </View>
